@@ -1,0 +1,3 @@
+package company.com.movieappkotlin.network.models.MovieResponse
+
+data class Results(val id: Number?, val video: Boolean?, val vote_count: Number?, val vote_average: Number?, val title: String?, val release_date: String?, val original_language: String?, val original_title: String?, val genre_ids: List<Number>?, val backdrop_path: String?, val adult: Boolean?, val overview: String?, val poster_path: String?, val popularity: Number?, val media_type: String?)
