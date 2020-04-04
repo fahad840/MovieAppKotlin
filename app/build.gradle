@@ -25,9 +25,26 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+    }
+    configurations.all() {
+        resolutionStrategy.force "org.antlr:antlr4-runtime:4.7.1"
+        resolutionStrategy.force "org.antlr:antlr4-tool:4.7.1"
     }
     dataBinding {
         enabled = true
+    }
+
+// To inline the bytecode built with JVM target 1.8 into
+// bytecode that is being built with JVM target 1.6. (e.g. navArgs)
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
 }
@@ -41,6 +58,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:29.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.1'
+    implementation 'androidx.navigation:navigation-ui:2.2.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -63,13 +82,13 @@ dependencies {
     implementation "org.kodein.di:kodein-di-framework-android-x:6.2.1"
 
     //Android Room
-    implementation "androidx.room:room-runtime:2.2.4"
-    implementation "androidx.room:room-ktx:2.2.4"
-    kapt "androidx.room:room-compiler:2.2.4"
+    implementation "androidx.room:room-runtime:2.2.5"
+    implementation "androidx.room:room-ktx:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
 
     //Android Navigation Architecture
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha03"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha03"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha04"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha04"
 
     implementation 'com.xwray:groupie:2.3.0'
     implementation 'com.xwray:groupie-kotlin-android-extensions:2.3.0'
@@ -82,19 +101,19 @@ dependencies {
 
     //WorkManager
     // (Java only)
-    implementation "androidx.work:work-runtime:2.3.3"
+    implementation "androidx.work:work-runtime:2.3.4"
 
     // Kotlin + coroutines
-    implementation "androidx.work:work-runtime-ktx:2.3.3"
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
 
     // optional - RxJava2 support
-    implementation "androidx.work:work-rxjava2:2.3.3"
+    implementation "androidx.work:work-rxjava2:2.3.4"
 
     // optional - GCMNetworkManager support
-    implementation "androidx.work:work-gcm:2.3.3"
+    implementation "androidx.work:work-gcm:2.3.4"
 
     // optional - Test helpers
-    androidTestImplementation "androidx.work:work-testing:2.3.3"
+    androidTestImplementation "androidx.work:work-testing:2.3.4"
 
     implementation 'com.android.support:multidex:1.0.3'
 

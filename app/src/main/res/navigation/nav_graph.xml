@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/moviesFragment">
 
     <fragment
         android:id="@+id/moviesFragment"
         android:name="company.com.movieappkotlin.ui.moviesui.MoviesFragment"
+        tools:layout="@layout/fragment_movies"
         android:label="Movies Fragment" >
         <action
             android:id="@+id/action_moviesFragment_to_movieDetailFragment"
@@ -19,9 +21,15 @@
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="company.com.movieappkotlin.ui.moviedetailui.MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail"
         android:label="MovieDetailFragment" >
         <action
             android:id="@+id/action_movieDetailFragment_self"
             app:destination="@id/movieDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ratedMoviesFragment"
+        tools:layout="@layout/fragment_rated_movies"
+        android:name="company.com.movieappkotlin.ui.ratedui.RatedMoviesFragment"
+        android:label="RatedMoviesFragment" />
 </navigation>

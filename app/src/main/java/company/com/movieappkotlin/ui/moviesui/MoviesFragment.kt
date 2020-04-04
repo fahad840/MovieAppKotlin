@@ -87,7 +87,7 @@ class MoviesFragment : InjectionFragment(),MoviesListener,MovieAdapter.ItemClick
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
+        inflater.inflate(R.menu.fav_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

@@ -8,6 +8,7 @@ import company.com.movieappkotlin.repository.SessionRepository
 import company.com.movieappkotlin.repository.UserRepository
 import company.com.movieappkotlin.ui.moviedetailui.MovieDetailViewModelFactory
 import company.com.movieappkotlin.ui.moviesui.MoviesViewModelFactory
+import company.com.movieappkotlin.ui.ratedui.RatedMoviesViewModelFactory
 import company.com.movieappkotlin.ui.session.SessionViewModelFactory
 import company.com.movieappkotlin.utils.SharedPreferenceHelper
 import org.kodein.di.Kodein
@@ -30,6 +31,7 @@ class MovieApp : Application(), KodeinAware {
         bind() from singleton { MovieRepository(instance(),instance()) }
         bind() from provider { MoviesViewModelFactory(instance(),instance(),instance()) }
         bind() from provider { MovieDetailViewModelFactory(instance()) }
+        bind() from provider { RatedMoviesViewModelFactory(instance()) }
     }
 }
 

@@ -4,14 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import company.com.movieappkotlin.db.dao.MovieDao
 import company.com.movieappkotlin.db.dao.UserDao
+import company.com.movieappkotlin.db.entities.Movie
 import company.com.movieappkotlin.db.entities.User
 import company.com.movieappkotlin.network.models.UserDetailResponse.UserDetailResponse
 
-@Database(entities = [User::class],version = 1,exportSchema = false)
+@Database(entities = [User::class,Movie::class],version = 5,exportSchema = false)
 abstract class AppDatabase:RoomDatabase() {
 
     abstract fun getUserDao(): UserDao
+    abstract fun getMovieDao():MovieDao
 
     companion object{
         @Volatile
@@ -28,7 +31,8 @@ abstract class AppDatabase:RoomDatabase() {
             Room.databaseBuilder(context,
                 AppDatabase::class.java,
                 "Mydatabase.db"
-            ).build()
+            ).fallbackToDestructiveMigration()
+                .build()
     }
 
 }

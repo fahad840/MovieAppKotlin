@@ -13,7 +13,9 @@ class UserRepository(private val apiInterface: ApiInterface,private val appDatab
         return apiInterface.getUserDetail(Constants.API_KEY,sessionId)
     }
 
-    suspend fun saveUser(user:User){ appDatabase.getUserDao().upsert(user)}
+    suspend fun saveUser(user:User){
+        appDatabase.getUserDao().upsert(user)
+    }
 
     fun getUser() = appDatabase.getUserDao().getUser()
     fun deleteUser()=appDatabase.getUserDao().deleteUser()

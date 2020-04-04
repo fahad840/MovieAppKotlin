@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/newmovies"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="New Movies" />
 
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/ratedMoviesFragment"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="My Rated Movies" />
     <item
         android:id="@+id/myProfile"
         android:icon="@drawable/ic_launcher_foreground"
@@ -14,4 +15,6 @@
         android:id="@+id/aboutUs"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="About us" />
+    </group>
+
 </menu>
