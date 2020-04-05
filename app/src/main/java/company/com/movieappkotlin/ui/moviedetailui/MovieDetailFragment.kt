@@ -14,12 +14,13 @@ import company.com.movieappkotlin.R
 import company.com.movieappkotlin.adapter.MovieAdapter
 import company.com.movieappkotlin.databinding.FragmentMovieDetailBinding
 import company.com.movieappkotlin.db.entities.Movie
+import company.com.movieappkotlin.ui.moviesui.MoviesListener
 import company.com.movieappkotlin.utils.Constants
 import company.com.movieappkotlin.utils.InjectionFragment
 import company.com.movieappkotlin.utils.snackbar
 import org.kodein.di.generic.instance
 
-class MovieDetailFragment : InjectionFragment(),MovieDetailListener,MovieAdapter.ItemClickListener {
+class MovieDetailFragment : InjectionFragment(),MoviesListener,MovieAdapter.ItemClickListener {
     private lateinit var binding:FragmentMovieDetailBinding
     private val movieDetailViewModelFactory:MovieDetailViewModelFactory by instance()
     private lateinit var adapter: MovieAdapter
@@ -33,6 +34,7 @@ class MovieDetailFragment : InjectionFragment(),MovieDetailListener,MovieAdapter
         // Inflate the layout for this fragment
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_movie_detail,container,false)
         bindingViewModel = ViewModelProvider(this,movieDetailViewModelFactory).get(MovieDetailViewModel::class.java)
+        bindingViewModel.movieListener=this
         binding.movieDetailViewModel=bindingViewModel
         val movieId=arguments?.getString("movieId")
         movieId?.let {
@@ -44,6 +46,7 @@ class MovieDetailFragment : InjectionFragment(),MovieDetailListener,MovieAdapter
             })
 
             bindingViewModel.getMovieDetail(it).observe(activity!!, Observer {
+                showProgressBar(false)
                 Glide.with(this).load("https://image.tmdb.org/t/p/w500/${it.backdrop_path}")
                     .into(binding.moviePosterImg)
                 binding.movieName.text=it.original_title
@@ -54,13 +57,15 @@ class MovieDetailFragment : InjectionFragment(),MovieDetailListener,MovieAdapter
                 binding.ratingBar.rating= ((it.vote_average?.div(10))?.times(5))!!
                 movie= Movie(it.id?.toInt(),it.original_title,it.poster_path, ((it.vote_average.div(10)).times(5)))
                 binding.favmovieImg.setOnClickListener {
-
                     bindingViewModel.saveFavMovie(movie)
+                    binding.favmovieImg.setImageResource(android.R.drawable.btn_star_big_on)
+                    binding.favmovieImg.isClickable = false
                     view?.rootView?.snackbar("Add to rated list!")
 
                 }
             })
             bindingViewModel.getSimilarMovies(it).observe(activity!!, Observer {
+                showProgressBar(false)
                 adapter= MovieAdapter(activity!!,it,Constants.SIMILAR)
                 adapter.setClickListener(this)
                 binding.similarRecycler.layoutManager=LinearLayoutManager(activity!!,LinearLayoutManager.HORIZONTAL,false)
@@ -71,16 +76,35 @@ class MovieDetailFragment : InjectionFragment(),MovieDetailListener,MovieAdapter
         return binding.root
     }
 
-    override fun onSucess() {
-    }
-
-    override fun onFailure() {
-    }
-
     override fun onItemClick(view: View?, position: Int,tag:String) {
         val bundle = bundleOf("movieId" to adapter.getItem(position).id.toString())
         findNavController().navigate(R.id.action_movieDetailFragment_self,bundle)
 
     }
+
+    override fun onSuccess() {
+    }
+
+    override fun onStarted() {
+        showProgressBar(true)
+    }
+
+    override fun onFailure(message: String) {
+        showProgressBar(false)
+        binding.root.snackbar(message)
+    }
+
+
+    fun showProgressBar(show: Boolean){
+        if (show) {
+            binding.lottie.animationView.visibility = View.VISIBLE
+            binding.lottie.animationView.playAnimation()
+        }
+        else{
+            binding.lottie.animationView.clearAnimation()
+            binding.lottie.animationView.visibility = View.GONE
+        }
+    }
+
 
 }

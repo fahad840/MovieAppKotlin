@@ -31,5 +31,9 @@
         android:id="@+id/ratedMoviesFragment"
         tools:layout="@layout/fragment_rated_movies"
         android:name="company.com.movieappkotlin.ui.ratedui.RatedMoviesFragment"
-        android:label="RatedMoviesFragment" />
+        android:label="RatedMoviesFragment" >
+        <action
+            android:id="@+id/action_ratedMoviesFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
 </navigation>

@@ -19,6 +19,7 @@ class MoviesViewModel(private val userRepository: UserRepository,private val mov
     var moviesListener:MoviesListener?=null
 
     fun getUserDetails(){
+        moviesListener?.onStarted()
         Coroutines.main {
             val resposne=userRepository.getUserDetails(preferenceHelper.getValueString(Constants.SESSION_ID)!!)
             print(Gson().newBuilder().setPrettyPrinting().create().toJson(resposne))
@@ -39,6 +40,8 @@ class MoviesViewModel(private val userRepository: UserRepository,private val mov
     }
 
     fun getPopularMovies():LiveData<List<Results>>{
+        moviesListener?.onStarted()
+
         val movesmutable= MutableLiveData<List<Results>>()
         Coroutines.main {
             val response=movieRepository.getPopularMovies()
@@ -54,6 +57,7 @@ class MoviesViewModel(private val userRepository: UserRepository,private val mov
     }
 
     fun getTrendingMovies():LiveData<List<Results>>{
+        moviesListener?.onStarted()
         val movesmutable= MutableLiveData<List<Results>>()
         Coroutines.main {
             val response=movieRepository.getTrendingMovies()
@@ -70,6 +74,7 @@ class MoviesViewModel(private val userRepository: UserRepository,private val mov
     }
 
     fun getUpcomingMovies():LiveData<List<Results>>{
+        moviesListener?.onStarted()
         val movesmutable= MutableLiveData<List<Results>>()
         Coroutines.main {
             val response=movieRepository.getUpcomingMovies()

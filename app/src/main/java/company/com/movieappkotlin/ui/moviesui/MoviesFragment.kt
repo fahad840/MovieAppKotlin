@@ -56,8 +56,9 @@ class MoviesFragment : InjectionFragment(),MoviesListener,MovieAdapter.ItemClick
     }
 
     override fun onSuccess() {
-
+        showProgressBar(false)
         bindingViewModel.getUpcomingMovies().observe(this , Observer {
+            showProgressBar(false)
             upcomingAdapter= MovieAdapter(activity!!.applicationContext,it,Constants.UPCOMING)
             upcomingAdapter.setClickListener(this)
             binding.upcomingRecycler.also {
@@ -67,9 +68,9 @@ class MoviesFragment : InjectionFragment(),MoviesListener,MovieAdapter.ItemClick
         })
 
         bindingViewModel.getPopularMovies().observe(this, Observer {
+            showProgressBar(false)
             popularAdapter= MovieAdapter(activity!!.applicationContext,it,Constants.POPULAR)
             popularAdapter.setClickListener(this)
-
             binding.popularRecycler.also {
                 it.layoutManager = LinearLayoutManager(activity!!.applicationContext, LinearLayoutManager.HORIZONTAL, false)
                 it.adapter=popularAdapter
@@ -77,6 +78,7 @@ class MoviesFragment : InjectionFragment(),MoviesListener,MovieAdapter.ItemClick
         })
 
         bindingViewModel.getTrendingMovies().observe(this, Observer {
+            showProgressBar(false)
             trendingAdapter= MovieAdapter(activity!!.applicationContext,it,Constants.TRENDING)
             trendingAdapter.setClickListener(this)
             binding.trendingRecycler.also {
@@ -84,6 +86,10 @@ class MoviesFragment : InjectionFragment(),MoviesListener,MovieAdapter.ItemClick
                 it.adapter=trendingAdapter
             }
         })
+    }
+
+    override fun onStarted() {
+        showProgressBar(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -120,6 +126,19 @@ class MoviesFragment : InjectionFragment(),MoviesListener,MovieAdapter.ItemClick
         findNavController().navigate(R.id.action_moviesFragment_to_movieDetailFragment,bundle)
 
     }
+
+    fun showProgressBar(show: Boolean){
+        if (show) {
+            binding.lottie.animationView.visibility = View.VISIBLE
+            binding.lottie.animationView.playAnimation()
+        }
+        else{
+            binding.lottie.animationView.clearAnimation()
+            binding.lottie.animationView.visibility = View.GONE
+        }
+    }
+
+
 
 }
 

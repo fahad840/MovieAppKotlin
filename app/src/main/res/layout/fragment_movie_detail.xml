@@ -236,6 +236,13 @@
         android:onClick="favClicked"
         app:layout_constraintTop_toBottomOf="@+id/movieName"
         app:srcCompat="@android:drawable/btn_star_big_off" />
+
+    <include
+        android:id="@+id/lottie"
+        layout="@layout/loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </include>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
