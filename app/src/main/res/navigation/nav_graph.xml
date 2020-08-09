@@ -36,4 +36,8 @@
             android:id="@+id/action_ratedMoviesFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="company.com.movieappkotlin.ui.settingui.SettingFragment"
+        android:label="SettingFragment" />
 </navigation>

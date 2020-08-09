@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import company.com.movieappkotlin.R
 import company.com.movieappkotlin.adapter.MovieAdapter
@@ -18,6 +20,7 @@ import company.com.movieappkotlin.ui.moviesui.MoviesListener
 import company.com.movieappkotlin.utils.Constants
 import company.com.movieappkotlin.utils.InjectionFragment
 import company.com.movieappkotlin.utils.snackbar
+import company.com.movieappkotlin.worker.NotificationWorker
 import org.kodein.di.generic.instance
 
 class MovieDetailFragment : InjectionFragment(),MoviesListener,MovieAdapter.ItemClickListener {
@@ -60,8 +63,8 @@ class MovieDetailFragment : InjectionFragment(),MoviesListener,MovieAdapter.Item
                     bindingViewModel.saveFavMovie(movie)
                     binding.favmovieImg.setImageResource(android.R.drawable.btn_star_big_on)
                     binding.favmovieImg.isClickable = false
-                    view?.rootView?.snackbar("Add to rated list!")
-
+                    val oneTimeWorkRequest= OneTimeWorkRequest.from(NotificationWorker::class.java)
+                    WorkManager.getInstance(activity!!).enqueue(oneTimeWorkRequest)
                 }
             })
             bindingViewModel.getSimilarMovies(it).observe(activity!!, Observer {
@@ -95,7 +98,7 @@ class MovieDetailFragment : InjectionFragment(),MoviesListener,MovieAdapter.Item
     }
 
 
-    fun showProgressBar(show: Boolean){
+    private fun showProgressBar(show: Boolean){
         if (show) {
             binding.lottie.animationView.visibility = View.VISIBLE
             binding.lottie.animationView.playAnimation()

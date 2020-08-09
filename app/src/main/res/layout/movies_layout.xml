@@ -6,25 +6,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="20dp">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <ImageView
                 android:id="@+id/moviePosterimg"
-                android:layout_width="120dp"
-                android:layout_height="100dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,11 +18,12 @@
 
             <TextView
                 android:id="@+id/movieNametxt"
-                android:layout_width="120dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
                 android:layout_margin="10dp"
                 android:lines="2"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:text="Star Wars: The Rise of Skywalker"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -45,6 +31,5 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/moviePosterimg" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
 

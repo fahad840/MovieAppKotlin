@@ -7,10 +7,9 @@
         android:icon="@drawable/ic_launcher_foreground"
         android:title="My Rated Movies" />
     <item
-        android:id="@+id/myProfile"
+        android:id="@+id/settingFragment"
         android:icon="@drawable/ic_launcher_foreground"
-
-        android:title="My Profile" />
+        android:title="Settings" />
     <item
         android:id="@+id/aboutUs"
         android:icon="@drawable/ic_launcher_foreground"
